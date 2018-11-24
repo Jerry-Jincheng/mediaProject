@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     //printf("health is: %g\n",health);
     std::cout<<health<<std::endl;
 
-    //enermies
+    //enermiess
     int i=0;
     for(auto &e:enermies)
     {
