@@ -27,7 +27,6 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    comsumable.cpp \
     healthpack.cpp \
     environment.cpp \
     penemyview.cpp \
@@ -35,7 +34,8 @@ SOURCES += \
     protagonistview.cpp \
     environmentview.cpp \
     healthpackview.cpp \
-    controller.cpp
+    controller.cpp \
+    consumable.cpp
 
 HEADERS += \
         mainwindow.h \
