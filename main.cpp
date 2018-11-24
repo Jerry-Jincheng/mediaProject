@@ -1,47 +1,18 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include <qgraphicsview.h>
-#include <qgraphicsscene.h>
-#include <QGraphicsRectItem>
-#include <QPixmap>
-#include <iostream>
-#include "consumable.h"
+#include "controller.h"
+#include <memory>
+
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    World *world = new World();
-    QString filename = ":/maze1.png";
 
+    Controller *contr = new Controller();
+    contr->protagonistController();
 
-    std::vector<std::unique_ptr<Tile>> tiles = world->createWorld(filename);
-    std::unique_ptr<Protagonist> protagonist = world->getProtagonist();
-    std::vector<std::unique_ptr<Enemy>> enermies = world->getEnemies(2);
-
-    //protagonist
-    protagonist->setXPos(10);
-    protagonist->setYPos(0);
-    //protagonist->setPos(0,0);
-    protagonist->setHealth(100.0);
-    float health = protagonist->getHealth();
-    //printf("health is: %g\n",health);
-    std::cout<<health<<std::endl;
-
-    //enermiess
-    int i=0;
-    for(auto &e:enermies)
-    {
-        e->setXPos(5+i);
-        e->setYPos(5+i);
-        i+=10;
-        //std::cout<<"enermy"<<e->getXPos()<<std::endl;
-    }
-
-    std::cout<<"protagonist at position ("<<protagonist->getXPos()<<", "<<protagonist->getYPos()
-            <<"), health value = "<<protagonist->getHealth()
-               <<",energy = "<<protagonist->getEnergy()<<std::endl;
 
 //    int rows = world->getRows();
 //    int cols = world->getCols();

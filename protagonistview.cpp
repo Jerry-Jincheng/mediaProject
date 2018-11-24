@@ -1,10 +1,14 @@
 #include "protagonistview.h"
+#include <iostream>
 
 ProtagonistView::ProtagonistView()
 {
-    //    std::cout<<"protagonist at position ("<<protagonist->getXPos()<<", "<<protagonist->getYPos()
-    //            <<"), health value = "<<protagonist->getHealth()
-    //               <<",energy = "<<protagonist->getEnergy()<<std::endl;
 
+}
 
+void ProtagonistView::textView(int xPos, int yPos, float health, float energy)
+{
+    std::cout<<"protagonist at position ("<<xPos<<", "<<yPos
+                <<"), health value = "<<health
+                <<",energy = "<<energy<<std::endl;
 }
