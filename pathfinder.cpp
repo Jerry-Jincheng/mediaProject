@@ -1,21 +1,3 @@
-#include "pathfinder.h"
-
-//Pathfinder::Pathfinder( std::vector<std::unique_ptr<Tile>>& mymap,
-//                        std::unique_ptr<Tile> &mystart,
-//                        std::unique_ptr<Tile> &myend,int width,int length):map{mymap},start{mystart},end{myend},cols{width},rows{length}
-//{
-//}
-
-//std::map<std::unique_ptr<Tile>, std::unique_ptr<Tile>>* Pathfinder::find()
-//{
-
-//}
-//std::vector<std::unique_ptr<Tile>> Pathfinder::getNeighbors(std::unique_ptr<Tile> current)
-//{
-
-//}
-
-
 /*
  Sample code from https://www.redblobgames.com/pathfinding/a-star/
  Copyright 2014 Red Blob Games <redblobgames@gmail.com>
@@ -23,7 +5,7 @@
  Feel free to use this code in your own projects, including commercial projects
  License: Apache v2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
 */
-
+#include "pathfinder.h"
 #include <iostream>
 #include <iomanip>
 #include <map>
@@ -33,53 +15,6 @@
 #include <algorithm>
 #include <cstdlib>
 
-
-//struct GridLocation {
-//  int x, y;
-//  double value;
-//};
-
-//struct SquareGrid {
-//  static std::array<GridLocation, 4> DIRS;
-
-//  int width, height;
-//  std::set<GridLocation> walls;
-
-//  SquareGrid(int width_, int height_)
-//     : width(width_), height(height_) {}
-
-//  bool in_bounds(GridLocation id) const {
-//    return 0 <= id.x && id.x < width
-//        && 0 <= id.y && id.y < height;
-//  }
-
-//  bool passable(GridLocation id) const {
-//    return walls.find(id) == walls.end();
-//  }
-
-//  std::vector<GridLocation> neighbors(GridLocation id) const {
-//    std::vector<GridLocation> results;
-
-//    for (GridLocation dir : DIRS) {
-//      GridLocation next{id.x + dir.x, id.y + dir.y};
-//      if (in_bounds(next) && passable(next)) {
-//        results.push_back(next);
-//      }
-//    }
-
-//    if ((id.x + id.y) % 2 == 0) {
-//      // aesthetic improvement on square grids
-//      std::reverse(results.begin(), results.end());
-//    }
-
-//    return results;
-//  }
-//};
-
-//std::array<GridLocation, 4> SquareGrid::DIRS =
-//  {GridLocation{1, 0}, GridLocation{0, -1}, GridLocation{-1, 0}, GridLocation{0, 1}};
-
-//// Helpers for GridLocation
 
 bool operator == (GridLocation a, GridLocation b) {
   return a.x == b.x && a.y == b.y;
@@ -92,78 +27,6 @@ bool operator != (GridLocation a, GridLocation b) {
 bool operator < (GridLocation a, GridLocation b) {
   return std::tie(a.x, a.y) < std::tie(b.x, b.y);
 }
-
-std::basic_iostream<char>::basic_ostream& operator<<(std::basic_iostream<char>::basic_ostream& out, const GridLocation& loc) {
-  out << '(' << loc.x << ',' << loc.y << ')';
-  return out;
-}
-
-//// This outputs a grid. Pass in a distances map if you want to print
-//// the distances, or pass in a point_to map if you want to print
-//// arrows that point to the parent location, or pass in a path vector
-//// if you want to draw the path.
-//template<class Graph>
-//void draw_grid(const Graph& graph, int field_width,
-//               std::map<GridLocation, double>* distances=nullptr,
-//               std::map<GridLocation, GridLocation>* point_to=nullptr,
-//               std::vector<GridLocation>* path=nullptr) {
-//  for (int y = 0; y != graph.height; ++y) {
-//    for (int x = 0; x != graph.width; ++x) {
-//      GridLocation id {x, y};
-//      std::cout << std::left << std::setw(field_width);
-//      if (graph.walls.find(id) != graph.walls.end()) {
-//        std::cout << std::string(field_width, '#');
-//      } else if (point_to != nullptr && point_to->count(id)) {
-//        GridLocation next = (*point_to)[id];
-//        if (next.x == x + 1) { std::cout << "> "; }
-//        else if (next.x == x - 1) { std::cout << "< "; }
-//        else if (next.y == y + 1) { std::cout << "v "; }
-//        else if (next.y == y - 1) { std::cout << "^ "; }
-//        else { std::cout << "* "; }
-//      } else if (distances != nullptr && distances->count(id)) {
-//        std::cout << (*distances)[id];
-//      } else if (path != nullptr && find(path->begin(), path->end(), id) != path->end()) {
-//        std::cout << '@';
-//      } else {
-//        std::cout << '.';
-//      }
-//    }
-//    std::cout << '\n';
-//  }
-//}
-
-//void add_rect(SquareGrid& grid, int x1, int y1, int x2, int y2) {
-//  for (int x = x1; x < x2; ++x) {
-//    for (int y = y1; y < y2; ++y) {
-//      grid.walls.insert(GridLocation{x, y});
-//    }
-//  }
-//}
-
-//struct GridWithWeights: SquareGrid {
-//  std::set<GridLocation> forests;
-//  GridWithWeights(int w, int h): SquareGrid(w, h) {}
-//  double cost(GridLocation from_node, GridLocation to_node) const {
-//    return forests.find(to_node) != forests.end()? 5 : 1;
-//  }
-//};
-
-
-//template<typename Location>
-//std::vector<Location> reconstruct_path(
-//   Location start, Location goal,
-//   std::map<Location, Location> came_from
-//) {
-//  std::vector<Location> path;
-//  Location current = goal;
-//  while (current != start) {
-//    path.push_back(current);
-//    current = came_from[current];
-//  }
-//  path.push_back(start); // optional
-//  std::reverse(path.begin(), path.end());
-//  return path;
-//}
 
 
 Pathfinder::Pathfinder(std::vector<std::unique_ptr<Tile>>& mmap,int mwidth, int mlength):cols{mwidth},rows{mlength}
@@ -187,43 +50,7 @@ Pathfinder::Pathfinder(std::vector<std::unique_ptr<Tile>>& mmap,int mwidth, int 
     }
 }
 
-//inline double heuristic(GridLocation a, GridLocation b) {
-//  return std::abs(a.x - b.x) + std::abs(a.y - b.y);
-//}
 
-//template<typename Location, typename Graph>
-//void a_star_search
-//  (Graph graph,
-//   Location start,
-//   Location goal,
-//   std::map<Location, Location>& came_from,
-//   std::map<Location, double>& cost_so_far)
-//{
-//  PriorityQueue<Location, double> frontier;
-//  frontier.put(start, 0);
-
-//  came_from[start] = start;
-//  cost_so_far[start] = 0;
-
-//  while (!frontier.empty()) {
-//    Location current = frontier.get();
-
-//    if (current == goal) {
-//      break;
-//    }
-
-//    for (Location next : graph.neighbors(current)) {
-//      double new_cost = cost_so_far[current] + graph.cost(current, next);
-//      if (cost_so_far.find(next) == cost_so_far.end()
-//          || new_cost < cost_so_far[next]) {
-//        cost_so_far[next] = new_cost;
-//        double priority = new_cost + heuristic(next, goal);
-//        frontier.put(next, priority);
-//        came_from[next] = current;
-//      }
-//    }
-//  }
-//}
 void Pathfinder::find(std::unique_ptr<Tile>& start, std::unique_ptr<Tile>& end)
 {
 
@@ -300,6 +127,4 @@ void Pathfinder::print_path()
         {
             std::cout<<"x= "<<grid.x<< "  y= "<< grid.y<<std::endl;
         }
-
-
 }
