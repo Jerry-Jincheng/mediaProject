@@ -8,7 +8,7 @@ ProtagonistView::ProtagonistView()
 
 void ProtagonistView::textView(int xPos, int yPos, float health, float energy)
 {
-    std::cout<<"protagonist at position ("<<xPos<<", "<<yPos
-                <<"), health value = "<<health
-                <<",energy = "<<energy<<std::endl;
+//    std::cout<<"protagonist at position ("<<xPos<<", "<<yPos
+//                <<"), health value = "<<health
+//                <<",energy = "<<energy<<std::endl;
 }
