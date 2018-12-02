@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 
     Controller *contr = new Controller();
     contr->protagonistController();
+    contr->enemyController();
+    contr->penemyController();
 
 
 //    int rows = world->getRows();
