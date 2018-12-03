@@ -48,7 +48,7 @@ void Controller::moveProtagonistRight()
         if(x==e->getXPos()&&y==e->getYPos())//clision with normal enermy
         {
             //decrease health
-            protagonist->getHealth() =
+            //protagonist->getHealth() =
         }
 
     }

@@ -36,7 +36,8 @@ SOURCES += \
     healthpackview.cpp \
     controller.cpp \
     consumable.cpp \
-    enemyview.cpp
+    enemyview.cpp\
+    pathfinder.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +50,9 @@ HEADERS += \
     environmentview.h \
     healthpackview.h \
     controller.h \
-    enemyview.h
+    enemyview.h\
+    priorityqueue.h\
+    pathfinder.h
 
 FORMS += \
         mainwindow.ui
@@ -68,5 +71,8 @@ else:unix: LIBS += -L$$PWD/world_v2/ -lworld
 INCLUDEPATH += $$PWD/world_v2
 DEPENDPATH += $$PWD/world_v2
 
+
+
 RESOURCES += \
     src.qrc
+

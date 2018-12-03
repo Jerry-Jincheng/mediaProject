@@ -31,6 +31,7 @@ bool operator < (GridLocation a, GridLocation b) {
 
 Pathfinder::Pathfinder(std::vector<std::unique_ptr<Tile>>& mmap,int mwidth, int mlength):cols{mwidth},rows{mlength}
 {
+    // initialise the map and store in a vector
     for(int i=0;i<mlength;i++)
     {
         for(int j=0;j<mwidth;j++)
@@ -42,11 +43,6 @@ Pathfinder::Pathfinder(std::vector<std::unique_ptr<Tile>>& mmap,int mwidth, int 
            GridLocation grid{xPos,yPos,value};
            map.push_back(grid);
         }
-    }
-
-    for(int i=0;i<10;i++)
-    {
-        std::cout<<"X: "<<map.at(i).x<< "Y: "<<map.at(i).y<<std::endl;
     }
 }
 
@@ -70,30 +66,8 @@ void Pathfinder::find(std::unique_ptr<Tile>& start, std::unique_ptr<Tile>& end)
             break;
         }
 
-        //first find all neighbors of "current"
-          std::vector<GridLocation> neighbors;
-          int xPos=current.x;
-          int yPos=current.y;
-          if(xPos>1)
-          {
-              neighbors.push_back(map.at(yPos*cols+xPos-1));
-          }
-
-          if(xPos<cols-1)
-          {
-              neighbors.push_back(map.at(yPos*cols+xPos+1));
-          }
-
-          if(yPos>1)
-          {
-              neighbors.push_back(map.at((yPos-1)*cols+xPos));
-          }
-
-          if(yPos<rows-1)
-          {
-              neighbors.push_back(map.at((yPos+1)*cols+xPos));
-          }
-
+          //first find all neighbors of "current"
+          std::vector<GridLocation> neighbors=getNeighbors(current);
 
           //iterate the all the elements in the neighbors
           for(auto next:neighbors)
@@ -112,6 +86,7 @@ void Pathfinder::find(std::unique_ptr<Tile>& start, std::unique_ptr<Tile>& end)
 }
 
 
+
 void Pathfinder::print_path()
 {
         std::vector<GridLocation> path;
@@ -127,4 +102,36 @@ void Pathfinder::print_path()
         {
             std::cout<<"x= "<<grid.x<< "  y= "<< grid.y<<std::endl;
         }
+}
+
+std::vector<GridLocation> Pathfinder:: getNeighbors(GridLocation current)
+
+{
+    std::vector<GridLocation> neighbors;
+    int xPos=current.x;
+    int yPos=current.y;
+    //check if current GridLocation is in the first column
+    if(xPos>=1)
+    {
+        neighbors.push_back(map.at(yPos*cols+xPos-1));
+    }
+
+     //check if current GridLocation is in the last column
+    if(xPos<cols-1)
+    {
+        neighbors.push_back(map.at(yPos*cols+xPos+1));
+    }
+
+      //check if current GridLocation is in the first row
+    if(yPos>=1)
+    {
+        neighbors.push_back(map.at((yPos-1)*cols+xPos));
+    }
+
+      //check if current GridLocation is in the last row
+    if(yPos<rows-1)
+    {
+        neighbors.push_back(map.at((yPos+1)*cols+xPos));
+    }
+    return neighbors;
 }
