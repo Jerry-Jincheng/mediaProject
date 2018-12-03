@@ -4,6 +4,7 @@
 #include "protagonistview.h"
 #include "enemyview.h"
 #include "penemyview.h"
+#include "pathfinder.h"
 
 
 class Controller: public QObject
@@ -23,11 +24,14 @@ public:
 
     void createEnemies();
 
+    void testFinder();
+
 public slots:
     void moveProtagonistRight();
 
 private:
     std::shared_ptr<World> world;
+//    std::vector<std::unique_ptr<Tile>> tiles;
     std::vector<std::unique_ptr<Tile>> tiles;
     std::unique_ptr<Protagonist> protagonist;
     std::vector<std::unique_ptr<Enemy>> enemies;
@@ -37,6 +41,7 @@ private:
     std::unique_ptr<EnemyView> enemyView;
     std::unique_ptr<PEnemyView> penemyView;
 //    std::vector<std::unique_ptr<XEnemy>> xEnemies;
+    Pathfinder *finder;
 };
 
 #endif // CONTROLLER_H

@@ -11,8 +11,8 @@ public:
     void textView(int xPos,int yPos,float health,float energy, std::vector<std::unique_ptr<Tile>> my_tiles);
     void twoDView();
 
-private:
-    std::vector<std::unique_ptr<Tile>> tiles;
+//private:
+    //std::vector<std::unique_ptr<Tile>> tiles;
 
 };
 
