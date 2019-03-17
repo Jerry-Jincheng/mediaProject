@@ -1,14 +1,25 @@
 #ifndef PENEMYVIEW_H
 #define PENEMYVIEW_H
 
+#include <QGraphicsPixmapItem>
+#include <QObject>
 
-class PEnemyView
+class PEnemyView : public QObject, public QGraphicsPixmapItem
 {
+    Q_OBJECT
 public:
     PEnemyView();
+    virtual ~PEnemyView();
 
-    void textView(int xPos,int yPos,float strength);
-    void twoDView();
+public slots:
+    virtual void updates();
+    virtual void updatesDeath();
+    void dead_slot();
+
+private:
+    int nrOfPic;
+    QTimer *timer;
+    QTimer *timerDeath;
 };
 
 #endif // PENEMYVIEW_H
